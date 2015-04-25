@@ -37,8 +37,12 @@ class GoogleMapsClass:
 			print "---------->",placesQuery
 			#placesQuery="https://www.google.co.in/maps/search/json/"+placeName+"/@"+str(lat)+","+str(long)+",1z"	
 			resp=requests.get(placesQuery)
-			print "The places near the current place is --->", str(json.dumps(json.loads(resp.text)))
+			try:
+				print "The places near the current place is --->", str(json.dumps(json.loads(resp.text)))
+			except Exception as e:
+				print "Exception found "	
 			
+                        return json.dumps(json.loads(resp.text))
 			
 			
 
