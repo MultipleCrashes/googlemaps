@@ -1,5 +1,5 @@
 ''' @author : Harish '''
-
+import pygmaps
 import os 
 import requests
 import json 
@@ -22,6 +22,10 @@ class GoogleMapsClass:
 			resp=ast.literal_eval(responseString)		
 			
 			#print "The Latitude and Longitude for the given address is "+str(resp['results'][0]['geometry']['location'])
+			lat=resp['results'][0]['geometry']['location']['lat']
+			long=resp['results'][0]['geometry']['location']['lng']
+			locationmap=pygmaps.maps(lat,long,10)
+			locationmap.draw('./locationmap.html')
 			return resp['results'][0]['geometry']['location']
 
 
@@ -46,11 +50,11 @@ class GoogleMapsClass:
 			
 			
 
-'''
+
 
 if __name__=='__main__':
 	obj=GoogleMapsClass()
 	obj.getNearbyPlaces(lat=12.9,long=77.6,placeName='school')
 	#obj.getLocation(address="Domluru bangalore karnataka")
 
-'''
+
