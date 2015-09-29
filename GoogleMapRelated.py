@@ -30,7 +30,8 @@ class GoogleMapsClass:
 
 
 
-		def getNearbyPlaces(self,lat=12.9,long=77.6,type="restaurant",name="None",radius=500,key='AIzaSyCxuL9ReVu19BS2ZaFuMxB-3E2uPVo2ZHM'):
+		def getNearbyPlaces(self,latitude=None,longitude=None,type=None,
+                                    name="None",radius=None,key='AIzaSyCxuL9ReVu19BS2ZaFuMxB-3E2uPVo2ZHM'):
 	
 			'''Function to get different types of things in certain areas'''
 			print "The place name is-> ",name
@@ -42,11 +43,10 @@ class GoogleMapsClass:
 			#placesQuery="https://www.google.co.in/maps/search/json/"+placeName+"/@"+str(lat)+","+str(long)+",1z"	
 			resp=requests.get(placesQuery)
 			try:
-				print "The places near the current place is --->", str(json.dumps(json.loads(resp.text)))
+				print "The places near the current place is --->", str(json.dumps(json.loads(resp.text),indent=4))
 			except Exception as e:
 				print "Exception found "	
-			
-                        return json.dumps(json.loads(resp.text))
+			return json.dumps(json.loads(resp.text))
 			
 			
 
@@ -54,7 +54,12 @@ class GoogleMapsClass:
 
 if __name__=='__main__':
 	obj=GoogleMapsClass()
-	obj.getNearbyPlaces(lat=12.9,long=77.6,placeName='school')
-	#obj.getLocation(address="Domluru bangalore karnataka")
-
+	#obj.getNearbyPlaces(lat=12.9,long=77.6,placeName='school')
+	Location = obj.getLocation(address="BTM Bangalore")
+	print "Location ->",Location
+	print "Latitute ->",Location["lat"]
+	print "Longitued ->",Location["lng"]
+	lat = Location["lat"]
+	long =Location["lng"]
+	obj.getNearbyPlaces(latitude=12.9,longitude=77.6,type="hotels",name="oxford Mens",radius=500)
 
